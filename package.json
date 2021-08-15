@@ -31,17 +31,17 @@
 				"title": "Touchbar Command Shortcuts",
 				"properties": {	
 					"touchbarcommandshortcuts.firstCmd": {
-						"type" : ["string"],
+						"type" : ["object"],
 						"default": null,
 						"description": "Command to bind to the first shortcut"
 					},
 					"touchbarcommandshortcuts.secondCmd": {
-						"type" : ["string"],
+						"type" : ["object"],
 						"default": null,
 						"description": "Command to bind to the second shortcut"
 					},
 					"touchbarcommandshortcuts.thirdCmd": {
-						"type" : ["string"],
+						"type" : ["object"],
 						"default": null,
 						"description": "Command to bind to the third shortcut"
 					}

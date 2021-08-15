@@ -10,21 +10,22 @@ export function activate(context: vscode.ExtensionContext) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Activating Touchbar Command Shortcuts...');
 
-	var keys = ["first", "second", "third"];
+	const keys = ["first", "second", "third"];
 	keys.forEach(item => {
 		console.log(`Setting up ${item}`);
-		var cmdValue = vscode.workspace.getConfiguration('touchbarcommandshortcuts').get(`${item}Cmd`);
+		const cmdValue = vscode.workspace.getConfiguration('touchbarcommandshortcuts').get(`${item}Cmd`);
+    const { command, icon } = cmdValue || {};
 
 		if (!cmdValue) {
 			console.warn(`${item}Cmd has not been defined in settings. Add to settings and reload VSCode to enable.`);
 			vscode.commands.executeCommand('setContext', `touchbarcommandshortcuts:${item}Enabled`, false);	
 			return;
 			
-		} else {
-			console.log(`Settings for ${item}Cmd is set to ${cmdValue}`);
+		} else if(command) {
+			console.log(`Settings for ${item}Cmd is set to ${JSON.stringify(cmdValue)}`);
 			vscode.commands.executeCommand('setContext', `touchbarcommandshortcuts:${item}Enabled`, true);
 
-			let registeredCommandDisposable = vscode.commands.registerCommand(`touchbarcommandshortcuts.${item}`, () => vscode.commands.executeCommand(cmdValue as string));
+			const registeredCommandDisposable = vscode.commands.registerCommand(`touchbarcommandshortcuts.${item}`, () => vscode.commands.executeCommand(command as string));
 			context.subscriptions.push(registeredCommandDisposable);
 		} 	 
 	});
